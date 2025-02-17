@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Formulario Flask</title>
+</head>
+<body>
+    <h1>Formulario Flask</h1>
+    <form action="/procesa" method="post" enctype="multipart/form-data">
+        <label>Texto:</label> <input type="text" name="text"><br>
+        <label>Color:</label> <input type="color" name="color"><br>
+        <label>Fecha:</label> <input type="date" name="date"><br>
+        <label>Fecha y Hora:</label> <input type="datetime-local" name="datetime-local"><br>
+        <label>Correo:</label> <input type="email" name="email"><br>
+        <label>Mes:</label> <input type="month" name="month"><br>
+        <label>Número:</label> <input type="number" name="number"><br>
+        <label>Contraseña:</label> <input type="password" name="password"><br>
+        <label>Rango:</label> <input type="range" name="range"><br>
+        <label>Búsqueda:</label> <input type="search" name="search"><br>
+        <label>Teléfono:</label> <input type="tel" name="tel"><br>
+        <label>Hora:</label> <input type="time" name="time"><br>
+        <label>URL:</label> <input type="url" name="url"><br>
+        <label>Semana:</label> <input type="week" name="week"><br>
+        <label>Mensaje:</label> <textarea name="textarea"></textarea><br>
+        <label>Seleccionar:</label> <select name="select"><option value="opcion1">Opción 1</option><option value="opcion2">Opción 2</option></select><br>
+        <label>Checkbox:</label> <input type="checkbox" name="checkbox" value="marcado"><br>
+        <label>Radio:</label> <input type="radio" name="radio" value="opcion1"> Opción 1
+        <input type="radio" name="radio" value="opcion2"> Opción 2 <br>
+        <label>Archivo:</label> <input type="file" name="file"><br>
+        <input type="submit" value="Enviar">
+    </form>
+</body>
+</html>

@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Datos Recibidos</title>
+</head>
+<body>
+    <h1>Datos Recibidos</h1>
+    {% for campo, valor in datos.items() %}
+        <p><strong>{{ campo }}:</strong> {{ valor }}</p>
+    {% endfor %}
+</body>
+</html>
