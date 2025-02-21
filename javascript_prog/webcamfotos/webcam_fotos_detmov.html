@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sensor de Movimiento con Cámara</title>
+    <style>
+        .contenedor {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 250px;
+            height: 200px;
+            background: black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 2px solid #fff;
+            border-radius: 10px;
+        }
+        video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        canvas {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Detección de Movimiento con Cámara</h2>
+
+<div class="contenedor">
+    <video id="video" autoplay playsinline></video>
+</div>
+
+<canvas id="canvas" width="250" height="200"></canvas>
+
+<script>
+let currentStream = null;
+let lastFrame = null; // Última imagen capturada para comparar
+
+async function iniciarCamara() {
+    try {
+        const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+        let video = document.getElementById("video");
+        video.srcObject = stream;
+        currentStream = stream;
+
+        // Comenzar a analizar el movimiento cada 500ms
+        setInterval(detectarMovimiento, 500);
+
+    } catch (error) {
+        console.error("Error al acceder a la cámara:", error);
+        alert("No se pudo acceder a la cámara.");
+    }
+}
+
+function detectarMovimiento() {
+    let video = document.getElementById("video");
+    let canvas = document.getElementById("canvas");
+    let ctx = canvas.getContext("2d");
+
+    // Dibujar la imagen actual del video en el canvas
+    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+    
+    // Obtener los datos de los píxeles de la imagen actual
+    let currentFrame = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    
+    if (lastFrame) {
+        let diferencia = calcularDiferencia(lastFrame, currentFrame);
+
+        if (diferencia > 10) { // Umbral de diferencia (ajustable)
+            console.log("📸 Movimiento detectado, guardando imagen...");
+            tomarFoto(currentFrame);
+        }
+    }
+
+    lastFrame = currentFrame; // Guardamos el fotograma actual para comparar en el siguiente ciclo
+}
+
+function calcularDiferencia(frame1, frame2) {
+    let totalDiferencia = 0;
+    let length = frame1.data.length; // Total de píxeles (RGBA)
+
+    for (let i = 0; i < length; i += 4) {
+        let difR = Math.abs(frame1.data[i] - frame2.data[i]);
+        let difG = Math.abs(frame1.data[i + 1] - frame2.data[i + 1]);
+        let difB = Math.abs(frame1.data[i + 2] - frame2.data[i + 2]);
+
+        totalDiferencia += (difR + difG + difB) / 3;
+    }
+
+    return totalDiferencia / (length / 4); // Promedio de diferencia
+}
+
+function tomarFoto(frame) {
+    let canvas = document.getElementById("canvas");
+    let ctx = canvas.getContext("2d");
+    ctx.putImageData(frame, 0, 0);
+
+    let imagenBase64 = canvas.toDataURL("image/jpeg");
+
+    let fecha = new Date();
+    let nombreImagen = `movimiento_${fecha.getFullYear()}-${(fecha.getMonth()+1).toString().padStart(2,'0')}-${fecha.getDate().toString().padStart(2,'0')}_${fecha.getHours().toString().padStart(2,'0')}-${fecha.getMinutes().toString().padStart(2,'0')}-${fecha.getSeconds().toString().padStart(2,'0')}.jpg`;
+
+    enviarImagen(imagenBase64, nombreImagen);
+}
+
+async function enviarImagen(imagenBase64, nombreImagen) {
+    try {
+        let response = await fetch('http://localhost:3000/guardar-imagen', {
+            method: 'POST',
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ imagen: imagenBase64, nombre: nombreImagen })
+        });
+
+        let data = await response.json();
+        console.log("✅ Imagen guardada:", data.mensaje);
+    } catch (error) {
+        console.error("❌ Error al enviar la imagen:", error);
+    }
+}
+
+// Iniciar el proceso al cargar la página
+iniciarCamara();
+</script>
+
+</body>
+</html>
