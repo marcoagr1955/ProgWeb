@@ -1,0 +1,17 @@
+CREATE DATABASE IF NOT EXISTS progweb;
+USE progweb;
+
+CREATE TABLE IF NOT EXISTS personal (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    curp CHAR(18) NOT NULL UNIQUE,
+    nombre VARCHAR(50) NOT NULL,
+    apellidos VARCHAR(80) NOT NULL,
+    domicilio VARCHAR(255) NOT NULL,
+    colonia VARCHAR(100) NOT NULL,
+    codigo_postal CHAR(5) NOT NULL,
+    telefono VARCHAR(15),
+    email VARCHAR(100) NOT NULL UNIQUE,
+    fecha_nacimiento DATE NOT NULL,
+    estatura DECIMAL(5,2) NOT NULL,
+    peso DECIMAL(5,2) NOT NULL
+);
