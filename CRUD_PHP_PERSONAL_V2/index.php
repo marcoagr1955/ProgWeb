@@ -9,7 +9,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
     <!-- Estilos personalizados -->
-    <link rel="stylesheet" href="pre_estilo.css">
+    <link rel="stylesheet" href="css/pre_estilo.css">
 </head>
 <body>
 
@@ -24,8 +24,8 @@
                 <ul class="navbar-nav">
                     <li class="nav-item"><a class="nav-link" href="index.php">Inicio</a></li>
                     <li class="nav-item"><a class="nav-link" href="Formulario_alta.php">Altas</a></li>
-                    <li class="nav-item"><a class="nav-link" href="index.php">Editar</a></li>
-                    <li class="nav-item"><a class="nav-link" href="index.php">Bajas</a></li>
+                    <li class="nav-item"><a class="nav-link" href="Editar.php">Editar</a></li>
+                    <li class="nav-item"><a class="nav-link" href="Baja.php">Bajas</a></li>
                     <li class="nav-item"><a class="nav-link" href="index.php">Búsquedas</a></li>
                 </ul>
             </div>

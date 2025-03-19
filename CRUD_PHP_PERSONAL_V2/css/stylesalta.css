@@ -1,0 +1,60 @@
+body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+
+        /* Encabezado */
+        .encabezado {
+            background-color: #007bff;
+            color: white;
+            padding: 20px;
+        }
+
+/* Contenedor principal */
+.contenido {
+    display: flex; /* Coloca las cajas en una fila */
+    justify-content: center; /* Centra las cajas */
+    gap: 10px; /* Espacio entre las cajas */
+    padding: 20px;
+}
+
+
+
+/* Contenedor de la tabla */
+.table-container {
+    width: 80%; /* Ahora la tabla ocupará el 80% del ancho del navegador */
+    max-height: 500px; /* Altura máxima para el autodesplazamiento */
+    max-width: 900px;
+    overflow-y: auto; /* Agrega desplazamiento vertical */
+    border: 1px solid #007bff;
+    padding: 10px;
+    background: #f8f9fa;
+    border-radius: 5px;
+    
+    justify-content: center; /* Centrar la tabla dentro del contenedor */
+}
+
+/* Ajuste de la tabla */
+table {
+    width: 100%; /* La tabla ocupará el 100% del contenedor */
+    border-collapse: collapse;
+}
+
+th, td {
+    border: 1px solid #007bff;
+    padding: 8px;
+    text-align: left;
+    white-space: nowrap; /* Evita que el texto se divida en varias líneas */
+}
+
+th {
+    background-color: #007bff;
+    color: white;
+}
+
+.pie {
+            background-color: #222;
+            color: white;
+            padding: 10px;
+        }
+
