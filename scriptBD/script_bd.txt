@@ -15,3 +15,48 @@ CREATE TABLE IF NOT EXISTS personal (
     estatura DECIMAL(5,2) NOT NULL,
     peso DECIMAL(5,2) NOT NULL
 );
+
+
+CREATE TABLE IF NOT EXISTS reg_bajas (
+    id_baja INT AUTO_INCREMENT PRIMARY KEY, -- ID único para las bajas
+    id_original INT NOT NULL, -- ID del registro eliminado en `personal`
+    curp CHAR(18) NOT NULL,
+    nombre VARCHAR(50) NOT NULL,
+    apellidos VARCHAR(80) NOT NULL,
+    domicilio VARCHAR(255) NOT NULL,
+    colonia VARCHAR(100) NOT NULL,
+    codigo_postal CHAR(5) NOT NULL,
+    telefono VARCHAR(15),
+    email VARCHAR(100) NOT NULL,
+    fecha_nacimiento DATE NOT NULL,
+    estatura DECIMAL(5,2) NOT NULL,
+    peso DECIMAL(5,2) NOT NULL,
+    fecha_baja TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- Fecha en la que se eliminó el registro
+    motivo_baja VARCHAR(255) DEFAULT NULL -- Razón de la baja (opcional)
+);
+
+-- Antes de colocar el trigger seleccionar la BD
+USE progweb;  -- Selecciona la base de datos
+
+DELIMITER //
+
+CREATE TRIGGER before_delete_personal
+BEFORE DELETE ON personal
+FOR EACH ROW
+BEGIN
+    INSERT INTO reg_bajas (
+        id_original, curp, nombre, apellidos, domicilio, colonia, 
+        codigo_postal, telefono, email, fecha_nacimiento, estatura, peso, motivo_baja
+    ) VALUES (
+        OLD.id, OLD.curp, OLD.nombre, OLD.apellidos, OLD.domicilio, OLD.colonia, 
+        OLD.codigo_postal, OLD.telefono, OLD.email, OLD.fecha_nacimiento, OLD.estatura, OLD.peso, 
+        'Baja realizada manualmente'
+    );
+END;
+//
+
+DELIMITER ;
+
+
+
+
