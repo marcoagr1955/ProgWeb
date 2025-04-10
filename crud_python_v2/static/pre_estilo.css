@@ -1,0 +1,27 @@
+/* Estilo para el fondo de la página */
+body {
+    background: url('https://cdn.pixabay.com/photo/2016/11/29/09/08/business-1868750_1280.jpg') no-repeat center center fixed;
+    background-size: cover;
+}
+
+/* Contenedor principal */
+.content-wrapper {
+    max-width: 90%;
+    margin: auto;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+/* Estilo para la imagen fija */
+.fixed-image {
+    width: 100%;
+    max-width: 800px;
+    max-height: 350px;
+    object-fit: cover;
+    margin: 20px auto;
+    display: block;
+    border-radius: 10px;
+}

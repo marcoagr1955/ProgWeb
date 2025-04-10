@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Modificar Personal</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='pre_estilo.css') }}">
+</head>
+<body>
+    <div class="container mt-5 content-wrapper">
+        <h2>Modificar Registro de Personal</h2>
+        {% if mensaje %}
+            <div class="alert alert-info">{{ mensaje }}</div>
+        {% endif %}
+
+        <form method="POST" action="{{ url_for('modificacion_bp.modificacion') }}" class="row g-3 mb-4">
+            <div class="col-md-6 offset-md-3">
+                <label for="curp" class="form-label">Ingrese CURP a buscar:</label>
+                <input type="text" class="form-control" name="curp" id="curp" required>
+            </div>
+            <div class="col-12 text-center">
+                <button type="submit" class="btn btn-primary">Buscar</button>
+            </div>
+        </form>
+
+        {% if datos %}
+        <form method="POST" action="{{ url_for('modificacion_bp.actualizar') }}">
+            <div class="table-responsive">
+                <table class="table table-bordered align-middle">
+                    <thead class="table-light">
+                        <tr>
+                            <th>CURP</th>
+                            <th>Nombre</th>
+                            <th>Apellidos</th>
+                            <th>Domicilio</th>
+                            <th>Colonia</th>
+                            <th>Código Postal</th>
+                            <th>Teléfono</th>
+                            <th>Email</th>
+                            <th>Fecha Nacimiento</th>
+                            <th>Estatura</th>
+                            <th>Peso</th>
+                            <th>Actualizar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><input type="text" name="curp" value="{{ datos.curp }}" class="form-control" readonly></td>
+                            <td><input type="text" name="nombre" value="{{ datos.nombre }}" class="form-control"></td>
+                            <td><input type="text" name="apellidos" value="{{ datos.apellidos }}" class="form-control"></td>
+                            <td><input type="text" name="domicilio" value="{{ datos.domicilio }}" class="form-control"></td>
+                            <td><input type="text" name="colonia" value="{{ datos.colonia }}" class="form-control"></td>
+                            <td><input type="text" name="codigo_postal" value="{{ datos.codigo_postal }}" class="form-control"></td>
+                            <td><input type="text" name="telefono" value="{{ datos.telefono }}" class="form-control"></td>
+                            <td><input type="email" name="email" value="{{ datos.email }}" class="form-control" readonly></td>
+                            <td><input type="date" name="fecha_nacimiento" value="{{ datos.fecha_nacimiento }}" class="form-control"></td>
+                            <td><input type="number" step="0.01" name="estatura" value="{{ datos.estatura }}" class="form-control"></td>
+                            <td><input type="number" step="0.01" name="peso" value="{{ datos.peso }}" class="form-control"></td>
+                            <td><button type="submit" class="btn btn-success btn-sm">Actualizar</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </form>
+        {% endif %}
+
+        <div class="text-center mt-4">
+            <a href="{{ url_for('index') }}" class="btn btn-secondary">Volver al menú principal</a>
+        </div>
+    </div>
+</body>
+</html>
